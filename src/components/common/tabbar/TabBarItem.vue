@@ -35,9 +35,9 @@ export default {
 <style scoped>
   .tar-bar-item{
     flex:1;
-
     margin-top: 4px;
   }
+
   .tar-bar-item-text{
     margin-bottom: 4px;
   }
