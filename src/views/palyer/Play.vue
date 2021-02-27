@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    play test
+  </div>
 </template>
 
 <script>

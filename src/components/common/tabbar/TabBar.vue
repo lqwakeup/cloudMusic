@@ -1,12 +1,12 @@
 <template>
-  <div>
-    test
+  <div id="tab-bar">
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-name: "find"
+name: "TabBar"
 }
 </script>
 

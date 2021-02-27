@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    profile test
+  </div>
 </template>
 
 <script>

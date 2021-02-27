@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    yuncun test
+  </div>
 </template>
 
 <script>

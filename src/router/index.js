@@ -47,7 +47,7 @@ const routes = [
         component:Song
     },
     {
-        path:'/Yuncun',
+        path:'/yuncun',
         component:Yuncun
     }
 ]
