@@ -26,8 +26,12 @@ export default {
   data() {
     return {
       url:'',
-      musicCover:''
+      musicCover:'',
+      songIds:0
     }
+  },
+  computed:{
+
   },
   components:{
   },
@@ -35,8 +39,10 @@ export default {
     getBannerMusic(songId) {
       if(this.banners[songId].song !== null){
         handleMusicUrl(this.banners[songId].song.id).then(res=>{
+          this.songIds = this.banners[songId].song.id;
           this.url = res.data.data[0].url;
           this.$bus.$emit('sendUrl',this.url)
+          this.$bus.$emit('sendSongIds',this.songIds)
         }).catch(err=>{
           console.log(err)
         });

@@ -4,7 +4,6 @@
     <tab-bar>
       <tab-bar-content></tab-bar-content>
     </tab-bar>
-
     <music-play></music-play>
   </div>
 

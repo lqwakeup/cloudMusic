@@ -1,6 +1,6 @@
 <template>
   <div id="find">
-    <nav-bar>
+    <nav-bar class="find-nav-bar">
       <img src="../../assets/img/find/select.png" slot="left"  @click="drawer = true">
       <div slot="center" class="find-center">
         <el-input v-model="searchMsg" placeholder="请输入搜索内容"
@@ -83,5 +83,9 @@ export default {
   .find-center >>> .el-input__inner{
     border-radius: 20px;
     height: 34px;
+  }
+
+  .find-nav-bar{
+    box-shadow: 0 1px 1px rgba(100,100,100,0.1);
   }
 </style>

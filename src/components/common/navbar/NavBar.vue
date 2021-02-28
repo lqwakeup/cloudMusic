@@ -19,7 +19,7 @@ name: "NavBar"
     line-height: 44px;
     background-color: #f6f6f6;
     text-align: center;
-    box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+    /*box-shadow: 0 1px 1px rgba(100,100,100,0.1);*/
 
     position: fixed;
     top: 0;
