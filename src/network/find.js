@@ -26,3 +26,12 @@ export function handleMusicUrl(id) {
         }
     })
 }
+
+export function handleMusicCover(ids){
+    return request({
+        url:'/song/detail',
+        params:{
+            ids
+        }
+    })
+}
