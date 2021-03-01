@@ -3,17 +3,59 @@
     <img :src="songPic">
     <div class="songName">{{songName}}</div>
     <div class="singer">{{singer}}</div>
+    <div class="pinglun">
+      <img src="../../../assets/img/detail/pinglun.png"  @click="getPinglun(songIds)">
+      <span>{{musicTotal}}</span>
+    </div>
   </div>
 </template>
 
 <script>
+import {handleMusicPinglun} from "../../../network/detail";
 export default {
   name: "DetailCover",
   props:{
     songPic:String,
     songName:String,
     singer:String,
+    songIds:String
   },
+  data() {
+    return {
+      songId:'',
+      total:0,
+      musicTotal:''
+    }
+  },
+  mounted() {
+    this.songId = this.$route.params.songIds;
+    handleMusicPinglun(this.songId).then(res=>{
+      this.total = res.data.total;
+      this.musicTotal = this.total.toString();
+      if(this.total>999){
+        this.musicTotal = '999+'
+      }
+      if(this.total>10000){
+        this.musicTotal = '1w+'
+      }
+      if(this.total>100000){
+        this.musicTotal = '10w+'
+      }
+
+    }).catch(err=>{
+      console.log(err)
+    })
+  },
+  methods:{
+    getPinglun(index) {
+      handleMusicPinglun(index).then(res=>{
+       console.log(res)
+
+      }).catch(err=>{
+        console.log(err)
+      })
+    },
+  }
 }
 </script>
 
@@ -22,6 +64,23 @@ export default {
     width: 82%;
     height: 60%;
     margin:20% 10%;
+    position: relative;
+  }
+
+  .pinglun {
+    width: 10%;
+    height: 10%;
+    margin-left: 80%;
+    position: absolute;
+    bottom: 1px;
+  }
+  .pinglun span{
+    font-family: Arial;
+    font-size: 12px;
+    position: absolute;
+    top:-7%;
+    left: 51%;
+    z-index: 3;
   }
   .detail-cover img{
     width: 100%;

@@ -17,3 +17,12 @@ export function handleMusicUrl(id) {
         }
     })
 }
+
+export function handleMusicPinglun(id) {
+    return request({
+        url:'/comment/music',
+        params:{
+            id
+        }
+    })
+}

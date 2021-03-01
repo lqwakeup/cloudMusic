@@ -1,6 +1,6 @@
 <template>
   <div class="music-play" v-if="isShow">
-      <router-link :to="'/detail/'+songIds" class="routerLink" @click.native="musicProcess">
+      <router-link :to="'/detail/'+songIds" class="routerLink">
         <div class="audio-img">
           <img :src="musicCover" :class="{imgState:playState}">
         </div>
@@ -61,14 +61,17 @@ export default {
     })
   },
   methods:{
-    musicProcess() {
-      this.$bus.$emit('sendCurrentTime',this.currentTime);
-      this.$bus.$emit('sendDuration', this.duration);
-    },
+   // methods musicProcess() {
+   //    this.$bus.$emit('sendCurrentTime',this.currentTime);
+   //    this.$bus.$emit('sendDuration', this.duration);
+   //  },
     musicTime() {
       let audio = document.querySelector('audio')
       this.currentTime = audio.currentTime;
       this.duration = audio.duration;
+
+      this.$bus.$emit('sendCurrentTime',this.currentTime);
+      this.$bus.$emit('sendDuration', this.duration);
     },
     playing() {
       this.onPause();
