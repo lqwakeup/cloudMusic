@@ -99,7 +99,7 @@ export default {
     width: 100%;
     background-color: #f1f3f4;
     position: fixed;
-    bottom: 56px;
+    bottom: 52px;
     left: 0;
     right: 0;
   }
