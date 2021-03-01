@@ -33,13 +33,14 @@ import FindSwiper from "@/views/findings/childcomps/FindSwiper";
 
 import {handleSearchMusic,handleBanner} from "@/network/find";
 
+
 export default {
   name: "find",
   data() {
     return {
       searchMsg: '',
       drawer: false,
-      banners:[]
+      banners:[],
     }
   },
   components:{

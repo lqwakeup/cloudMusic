@@ -1,11 +1,22 @@
 <template>
   <div class="music-play" v-if="isShow">
-    <div class="detail-link">
-      <router-link :to="'/detail/'+songIds">
-        <img :src="musicCover" :class="{imgState:playState}">
+      <router-link :to="'/detail/'+songIds" class="routerLink" @click.native="musicProcess">
+        <div class="audio-img">
+          <img :src="musicCover" :class="{imgState:playState}">
+        </div>
+        <div class="audio-left">
+          <span>{{songName}}</span>
+          <span class="singer">-{{singer}}</span>
+        </div>
       </router-link>
+
+    <audio :src="url" autoplay  @play="onPlay" @pause="onPause" @timeupdate="musicTime"></audio>
+
+    <div class="audio-right">
+      <img v-if="isPlaying" @click="playing" src="../../../assets/img/detail/onPlay.png">
+      <img v-else @click="pasuing" src="../../../assets/img/detail/onPause.png">
+      <img src="../../../assets/img/playlist.png">
     </div>
-    <audio :src="url" autoplay controls @play="onPlay" @pause="onPause" controlsList="nodownload"></audio>
   </div>
 </template>
 
@@ -14,12 +25,26 @@ export default {
   name: "MusicPlay",
   data() {
     return {
-      url:"http://m8.music.126.net/20210228122737/2ba82477d726091e82377c5888339634/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/2841378497/5910/da6a/46e5/b896ae0a84f84fb3ad5494ce1361851f.mp3",
-      musicCover:"https://p2.music.126.net/0el5yaTEo3KjeJjL3ZXxmg==/109951165054951989.jpg",
+      url:'',
+      musicCover:'',
       playState:false,
       isShow: false,
-      songIds:0
+      songIds:0,
+      songName:'',
+      singer:'',
+      isPlaying:true,
+      currentTime:0,
+      duration:0
     }
+  },
+  created() {
+    this.$bus.$on('sendSongName',data=>{
+      this.songName = data;
+    });
+
+    this.$bus.$on('sendSinger',data=>{
+      this.singer = data;
+    })
   },
   mounted() {
     this.$bus.$on('sendUrl',data=>{
@@ -36,6 +61,27 @@ export default {
     })
   },
   methods:{
+    musicProcess() {
+      this.$bus.$emit('sendCurrentTime',this.currentTime);
+      this.$bus.$emit('sendDuration', this.duration);
+    },
+    musicTime() {
+      let audio = document.querySelector('audio')
+      this.currentTime = audio.currentTime;
+      this.duration = audio.duration;
+    },
+    playing() {
+      this.onPause();
+      this.isPlaying = false;
+      let audio = document.querySelector('audio')
+      audio.pause();
+    },
+    pasuing() {
+      this.onPlay();
+      this.isPlaying = true;
+      let audio = document.querySelector('audio')
+      audio.play();
+    },
     onPlay() {
       this.playState = true;
     },
@@ -57,21 +103,60 @@ export default {
     left: 0;
     right: 0;
   }
-  .detail-link{
-    width: 15%;
-    height: 45px;
 
+  .routerLink{
+    width: 80%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
-  img{
+  .routerLink img{
     width: 100%;
-    height: 100%;
     border-radius: 50%;
-    margin: 4px 5px 0 3px;
   }
-  .music-play audio{
-    width: 100%;
-    height: 50px;
-    margin-left: 10px;
+
+  .audio-img{
+    width: 15%;
+    margin-right: 10px;
+  }
+
+  .audio-left .singer{
+    font-size: 14px;
+    color: #99a9bf;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .routerLink span{
+    font-size: 16px;
+    padding: 3px;
+    color: black;
+  }
+
+  .audio-right{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    position: relative;
+  }
+
+  .audio-right img:nth-child(1){
+    position: absolute;
+    right: 51px;
+  }
+
+  .audio-right img:nth-child(2){
+    position: absolute;
+    right: 5px;
+  }
+  .audio-right img{
+    width: 40%;
+    height: 60%;
+    margin-top: 10px;
+    padding: 3px;
   }
 
   /* 定义动画 */

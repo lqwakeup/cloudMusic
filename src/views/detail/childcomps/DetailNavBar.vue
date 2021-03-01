@@ -3,8 +3,8 @@
     <nav-bar>
       <img src="../../../assets/img/detail/goback.png" slot="left" @click="imgGoback">
       <div slot="center">
-        <p>{{songName}}</p>
-        <p>{{singer}}</p>
+        <span>歌曲</span>
+        <span>歌词</span>
       </div>
       <img src="../../../assets/img/detail/share.png" slot="right">
     </nav-bar>
@@ -16,13 +16,9 @@ import NavBar from "@/components/common/navbar/NavBar";
 
 export default {
   name: "DetailNavBar",
-  props:{
-    songName:String,
-    singer:String,
-  },
+
   data() {
     return {
-
     }
   },
   components:{
@@ -37,5 +33,10 @@ export default {
 </script>
 
 <style scoped>
+  .detail-nav-bar span{
+    height: 5px;
+    margin-top: -2px;
+    padding: 5px;
+  }
 
 </style>

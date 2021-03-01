@@ -13,6 +13,9 @@
 <script>
 
 import {handleMusicUrl,handleMusicCover} from "@/network/find";
+
+import {handleMusicDetail} from "@/network/detail";
+
 export default {
   name: "FindSwiper",
   props:{
@@ -27,7 +30,9 @@ export default {
     return {
       url:'',
       musicCover:'',
-      songIds:0
+      songIds:0,
+      songName:'',
+      singer:''
     }
   },
   computed:{
@@ -52,7 +57,16 @@ export default {
           this.$bus.$emit('sendPicUrl',this.musicCover)
         }).catch(err=>{
           console.log(err)
-        })
+        });
+
+        handleMusicDetail(this.banners[songId].song.id).then(res=>{
+          this.songName = res.data.songs[0].al.name;
+          this.singer = res.data.songs[0].ar[0].name;
+          this.$bus.$emit('sendSongName',this.songName)
+          this.$bus.$emit('sendSinger',this.singer)
+        }).catch(err=>{
+          console.log(err)
+        });
       }
     }
   }

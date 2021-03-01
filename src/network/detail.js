@@ -8,3 +8,12 @@ export function handleMusicDetail(ids){
         }
     })
 }
+
+export function handleMusicUrl(id) {
+    return request({
+        url:'/song/url',
+        params:{
+            id
+        }
+    })
+}
