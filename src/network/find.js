@@ -1,14 +1,5 @@
 import {request} from './require';
 
-export function handleSearchMusic(keywords) {
-    return request({
-        url:'/cloudsearch',
-        params:{
-            keywords
-        }
-    })
-}
-
 export function handleBanner(type) {
     return request({
         url:'/banner',

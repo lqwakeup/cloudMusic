@@ -21,6 +21,9 @@
 </template>
 
 <script>
+import {handleMusicDetail} from "@/network/detail";
+import {handleMusicCover, handleMusicUrl} from "@/network/find";
+
 export default {
   name: "MusicPlay",
   data() {
@@ -37,34 +40,46 @@ export default {
       duration:0
     }
   },
+
   created() {
-    this.$bus.$on('sendSongName',data=>{
-      this.songName = data;
-    });
-
-    this.$bus.$on('sendSinger',data=>{
-      this.singer = data;
-    })
-  },
-  mounted() {
-    this.$bus.$on('sendUrl',data=>{
-      this.url = data;
-      this.isShow = true;
-    });
-
-    this.$bus.$on('sendPicUrl',data=>{
-      this.musicCover = data;
-    });
 
     this.$bus.$on('sendSongIds',data=>{
+      console.log(data)
       this.songIds = data;
-    })
+      this.getMsg()
+    });
+
+    this.$bus.$on('changeSongInd',data=>{
+      console.log(data)
+      this.songIds = data;
+      this.getMsg()
+    });
   },
+
+  updated() {
+    handleMusicDetail(this.songIds).then(res=>{
+      this.songName = res.data.songs[0].al.name;
+      this.singer = res.data.songs[0].ar[0].name;
+      this.isShow = true
+      console.log(this.singer)
+    }).catch(err=>{
+      console.log(err)
+    })
+
+    handleMusicCover(this.songIds).then(res=>{
+      this.musicCover = res.data.songs[0].al.picUrl;
+    }).catch(err=>{
+      console.log(err)
+    });
+
+    handleMusicUrl(this.songIds).then(res=>{
+      this.url = res.data.data[0].url;
+    }).catch(err=>{
+      console.log(err)
+    });
+  },
+
   methods:{
-   // methods musicProcess() {
-   //    this.$bus.$emit('sendCurrentTime',this.currentTime);
-   //    this.$bus.$emit('sendDuration', this.duration);
-   //  },
     musicTime() {
       let audio = document.querySelector('audio')
       this.currentTime = audio.currentTime;
@@ -90,7 +105,32 @@ export default {
     },
     onPause() {
       this.playState = false;
+    },
+
+    getMsg() {
+      handleMusicDetail(this.songIds).then(res=>{
+        this.songName = res.data.songs[0].al.name;
+        this.singer = res.data.songs[0].ar[0].name;
+        this.isShow = true
+        console.log(this.singer)
+      }).catch(err=>{
+        console.log(err)
+      })
+
+      handleMusicCover(this.songIds).then(res=>{
+        this.musicCover = res.data.songs[0].al.picUrl;
+      }).catch(err=>{
+        console.log(err)
+      });
+
+      handleMusicUrl(this.songIds).then(res=>{
+        this.url = res.data.data[0].url;
+      }).catch(err=>{
+        console.log(err)
+      });
     }
+
+
   }
 }
 </script>

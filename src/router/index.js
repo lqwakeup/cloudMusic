@@ -25,6 +25,8 @@ const Profile = ()=>import('../views/profile/Profile');
 const Song = ()=>import('../views/singsongs/Song')
 const Yuncun = ()=>import('../views/yuncun/Yuncun');
 const Detail = ()=>import('../views/detail/Detail');
+const Comment = ()=>import('../views/pinglun/Comment');
+const Search = ()=>import('../views/search/Search')
 
 const routes = [
     {
@@ -54,6 +56,14 @@ const routes = [
     {
         path: '/detail/:songIds',
         component:Detail
+    },
+    {
+        path:'/comment/:songIds',
+        component:Comment
+    },
+    {
+        path: '/search',
+        component:Search
     }
 ]
 

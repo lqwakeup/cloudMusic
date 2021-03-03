@@ -4,7 +4,9 @@
     <div class="songName">{{songName}}</div>
     <div class="singer">{{singer}}</div>
     <div class="pinglun">
-      <img src="../../../assets/img/detail/pinglun.png"  @click="getPinglun(songIds)">
+      <router-link :to="'/comment/'+songIds">
+        <img src="../../../assets/img/detail/pinglun.png">
+      </router-link>
       <span>{{musicTotal}}</span>
     </div>
   </div>
@@ -45,16 +47,6 @@ export default {
     }).catch(err=>{
       console.log(err)
     })
-  },
-  methods:{
-    getPinglun(index) {
-      handleMusicPinglun(index).then(res=>{
-       console.log(res)
-
-      }).catch(err=>{
-        console.log(err)
-      })
-    },
   }
 }
 </script>
@@ -95,6 +87,7 @@ export default {
   }
 
   .detail-cover .songName{
-    font-size: 24px;
+    font-size: 20px;
+    width: 80%;
   }
 </style>

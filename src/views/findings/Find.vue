@@ -3,8 +3,9 @@
     <nav-bar class="find-nav-bar">
       <img src="../../assets/img/find/select.png" slot="left"  @click="drawer = true">
       <div slot="center" class="find-center">
-        <el-input v-model="searchMsg" placeholder="请输入搜索内容"
-                  @keydown.enter.native="getMusic"></el-input>
+        <router-link to="/search">
+          <el-input placeholder="请输入搜索内容"></el-input>
+        </router-link>
       </div>
       <img src="../../assets/img/find/listen.png" slot="right">
     </nav-bar>
@@ -31,7 +32,7 @@ import NavBar from "@/components/common/navbar/NavBar";
 
 import FindSwiper from "@/views/findings/childcomps/FindSwiper";
 
-import {handleSearchMusic,handleBanner} from "@/network/find";
+import {handleBanner} from "@/network/find";
 
 
 export default {
@@ -48,14 +49,7 @@ export default {
     FindSwiper
   },
   methods:{
-    getMusic() {
-      console.log('hello')
-      handleSearchMusic(this.searchMsg).then(res=>{
-        console.log(res)
-      }).catch(err=>{
-        console.log(err)
-      })
-    },
+
 
     getBanners() {
       handleBanner(1).then(res=>{

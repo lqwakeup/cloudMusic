@@ -2,7 +2,6 @@
   <div id="detail">
     <detail-nav-bar></detail-nav-bar>
     <detail-cover :songPic="songPic" :songName="songName" :singer="singer" :songIds="songIds" ></detail-cover>
-
     <detail-player :songUrl="songUrl"></detail-player>
   </div>
 </template>
