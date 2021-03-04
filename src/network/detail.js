@@ -27,3 +27,13 @@ export function handleMusicPinglun(id) {
     })
 }
 
+export function handleMusicLyric(id){
+    return request({
+        url:'/lyric',
+        params:{
+            id
+        }
+
+    })
+}
+
